@@ -21,7 +21,7 @@ namespace TrabalhoATP
             }
             pontuacao = 0;
             numTirosDados = 0;
-            //posTirosDados = new Posicao[];   // iv) o vetor com as posições dos tiros dados (posTirosDados) deve ser instanciado.
+            posTirosDados = new Posicao[linhas*colunas];
         }
 
         public char[,] Tabuleiro
