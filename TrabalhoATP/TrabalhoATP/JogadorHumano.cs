@@ -19,7 +19,7 @@ namespace TrabalhoATP
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
             numTirosDados = 0;
-            this.posTirosDados = posTirosDados;
+            this.posTirosDados = new Posicao[linha * coluna]; //acho que assim ele pegaria o limite de posições
             this.nickname = nickname;
         }
         public char[,] GerarTabuleiro( int linha, int coluna)
@@ -48,6 +48,126 @@ namespace TrabalhoATP
             }
             return nickname;
         }
+        public Posicao EscolherAtaque()
+        {
+            bool posicaoValida = false; 
+            Posicao posicaoTiro=new Posicao();
+            int linha, coluna;
+            string letra;
+            string[] posLinCol;
+            while (!posicaoValida) 
+            {
+                Console.WriteLine("Escolha a posição do tiro(insira nesse modelo: numero da linha,numero da coluna): ");
+                letra=Console.ReadLine();
+                posLinCol = letra.Split(',');
+                linha=int.Parse(posLinCol[0]);
+                coluna=int.Parse(posLinCol[1]);
+                if(linha>=0 && linha<tabuleiro.GetLength(0) && coluna>=0 && coluna<tabuleiro.GetLength(1)) //olha se está no lim do tab
+                {
+                    posicaoTiro = new Posicao();
+                    posicaoValida = true;
+                    for (int i = 0; i < numTirosDados; i++) 
+                    {
+                        if (posTirosDados[i].Equals(posicaoTiro)) //para comparar
+                        {
+                            Console.WriteLine("Posição já utilizada, tente novamente!!");
+                            posicaoValida=false;
+                            i=numTirosDados;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Posição INVÁLIDA! Informe novamenete.");
+                }
+            }
+            posTirosDados[numTirosDados] = posicaoTiro; //se valida, bota no vet
+            numTirosDados++;
+            return posicaoTiro;
+        }
+        public bool ReceberAtaque(Posicao pos)
+        {
+            char[] embarcacoes = { 'S', 'H', 'C', 'E', 'P' };
+
+            for (int i = 0; i < embarcacoes.Length; i++)
+            {
+                if (tabuleiro[pos.Linha, pos.Coluna] == embarcacoes[i])
+                {
+                    tabuleiro[pos.Linha, pos.Coluna] = 'T';
+                    return true;
+                }
+            }
+            if (tabuleiro[pos.Linha, pos.Coluna] == 'A')
+            {
+                tabuleiro[pos.Linha, pos.Coluna] = 'X';
+            }
+            return false;
+        }
+        private void ImprimirTabuleiroJogador()
+        {
+            Console.WriteLine($"Tabuleiro {nickname}: " );
+            for (int linha = 0; linha < tabuleiro.GetLength(0); linha++)
+            {
+                for (int coluna = 0; coluna < tabuleiro.GetLength(1); coluna++)
+                {
+                    Console.Write(tabuleiro[linha, coluna] + "\t");
+                }
+                Console.WriteLine();
+            }
+        }
+        public void ImprimirTabuleiroAdversario()
+        {
+            Console.WriteLine("Tabuleiro Computador: ");
+            for (int linha = 0; linha < tabuleiro.GetLength(0); linha++)
+            {
+                for (int coluna = 0; coluna < tabuleiro.GetLength(1); coluna++)
+                {
+                    if (tabuleiro[linha, coluna] == 'S' || tabuleiro[linha, coluna] == 'H' || tabuleiro[linha, coluna] == 'C' || tabuleiro[linha, coluna] == 'E' || tabuleiro[linha, coluna] == 'P')
+                    {
+                        tabuleiro[linha, coluna] = 'A';
+                    }
+                    Console.Write(tabuleiro[linha, coluna] + "\t");
+                }
+                Console.WriteLine();
+            }
+        }
+        private bool AdicionarEmbarcacao(Embarcacao embarcacao, Posicao pos)
+        {
+            if (tabuleiro[pos.Linha, pos.Coluna] == 'A') 
+            {
+                if (tabuleiro.GetLength(1) - pos.Coluna >= embarcacao.Tamanho) 
+                {
+                    int cont = 1;
+                    bool vazio = true;
+                    for (int i = pos.Coluna + 1; cont < embarcacao.Tamanho && vazio; i++)
+                    {
+                        if (tabuleiro[pos.Linha, i] != 'A')
+                        {
+                            vazio = false;
+                        }
+                        cont++;
+                    }
+                    if (vazio)
+                    {
+                        tabuleiro[pos.Linha, pos.Coluna] = embarcacao.Nome[0]; 
+                        return true;
+                    }
+                    else
+                    {
+                        return false; 
+                    }
+                }
+                else
+                {
+                    return false; 
+                }
+            }
+            else
+            {
+                return false; 
+            }
+        }
+
         public char[,] Tabuleiro
         {
             get { return tabuleiro; }
