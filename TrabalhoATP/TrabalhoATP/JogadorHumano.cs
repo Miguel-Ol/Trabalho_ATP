@@ -12,14 +12,14 @@ namespace TrabalhoATP
         private char [,] tabuleiro;
         private int pontuacao;
         private int numTirosDados;
-        private Posicao [] posTirosDados; //iv) o vetor com as posições dos tiros dados(posTirosDados) deve ser instanciado?????
+        private Posicao [] posTirosDados;
         private string nickname;
-        public JogadorHumano (int linha,int coluna, Posicao[] posTirosDados, string nickname)
+        public JogadorHumano (int linha,int coluna, string nickname)
         {
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
             numTirosDados = 0;
-            this.posTirosDados = new Posicao[linha * coluna]; //acho que assim ele pegaria o limite de posições
+            posTirosDados = new Posicao[linha*coluna]; //acho que assim ele pegaria o limite de posições
             this.nickname = nickname;
         }
         public char[,] GerarTabuleiro( int linha, int coluna)
