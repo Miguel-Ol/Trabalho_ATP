@@ -21,7 +21,7 @@ namespace TrabalhoATP
             }
             pontuacao = 0;
             numTirosDados = 0;
-            posTirosDados = new Posicao[linhas*colunas];
+            posTirosDados = new Posicao[linhas * colunas];
         }
 
         public char[,] Tabuleiro
@@ -80,12 +80,13 @@ namespace TrabalhoATP
                 }
             }
 
-            for(int i = 0; i<posTirosDados.Length; i++)
+            bool achou = false;
+            for(int i = 0; i<posTirosDados.Length && !achou; i++)
             {
                 if (posTirosDados[i] == null)
                 {
                     posTirosDados[i] = pos;
-                    i = posTirosDados.Length; // so pra sair (?)
+                    achou = true;
                 }
             }
            
