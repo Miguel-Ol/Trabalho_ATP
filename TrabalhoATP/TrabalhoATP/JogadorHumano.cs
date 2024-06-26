@@ -12,14 +12,14 @@ namespace TrabalhoATP
         private char [,] tabuleiro;
         private int pontuacao;
         private int numTirosDados;
-        private Posicao [] posTirosDados;
+        private Posicao [] posTirosDados; 
         private string nickname;
-        public JogadorHumano (int linha,int coluna, string nickname)
+        public JogadorHumano (int linha,int coluna, Posicao[] posTirosDados, string nickname)
         {
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
             numTirosDados = 0;
-            posTirosDados = new Posicao[linha*coluna]; //acho que assim ele pegaria o limite de posições
+            this.posTirosDados = new Posicao[linha * coluna]; //acho que assim ele pegaria o limite de posições
             this.nickname = nickname;
         }
         public char[,] GerarTabuleiro( int linha, int coluna)
@@ -34,7 +34,7 @@ namespace TrabalhoATP
             }
             return tab;
         } 
-        private string GerarNickname (string nomeCompleto) //nome fornecido no main
+        public string GerarNickname (string nomeCompleto) //nome fornecido no main
         {
             string[] nome = nomeCompleto.Split(' '); //tranformo em um vetor, fazendo o split dos espaços
             if (nome.Length == 0) //como, sempre o primeiro nome é SEMPRE a primeira posição
@@ -103,7 +103,7 @@ namespace TrabalhoATP
             }
             return false;
         }
-        private void ImprimirTabuleiroJogador()
+        public void ImprimirTabuleiroJogador()
         {
             Console.WriteLine($"Tabuleiro {nickname}: " );
             for (int linha = 0; linha < tabuleiro.GetLength(0); linha++)
@@ -131,7 +131,7 @@ namespace TrabalhoATP
                 Console.WriteLine();
             }
         }
-        private bool AdicionarEmbarcacao(Embarcacao embarcacao, Posicao pos)
+        public bool AdicionarEmbarcacao(Embarcacao embarcacao, Posicao pos)
         {
             if (tabuleiro[pos.Linha, pos.Coluna] == 'A') 
             {
