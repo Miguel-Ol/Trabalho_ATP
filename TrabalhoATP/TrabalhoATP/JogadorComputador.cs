@@ -158,7 +158,13 @@ namespace TrabalhoATP
                     }
                     if (vazio)
                     {
-                        tabuleiro[pos.Linha, pos.Coluna] = embarcacao.Nome[0];
+                        int cont2 = 0; int i = pos.Coluna;
+                        while (cont2 < embarcacao.Tamanho)
+                        {
+                            tabuleiro[pos.Linha, i] = embarcacao.Nome[0];
+                            i++;
+                            cont2++;
+                        }
                         return true;
                     }
                     else // se outra posiçao necessaria ja tiver embarcacao
