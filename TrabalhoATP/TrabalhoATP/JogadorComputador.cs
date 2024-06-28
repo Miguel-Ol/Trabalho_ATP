@@ -154,6 +154,7 @@ namespace TrabalhoATP
                         {
                             vazio = false;
                         }
+                        cont++;
                     }
                     if (vazio)
                     {
