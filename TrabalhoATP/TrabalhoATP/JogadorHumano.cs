@@ -14,7 +14,7 @@ namespace TrabalhoATP
         private int numTirosDados;
         private Posicao [] posTirosDados; 
         private string nickname;
-        public JogadorHumano (int linha,int coluna, Posicao[] posTirosDados, string nickname)
+        public JogadorHumano (int linha,int coluna, string nickname)
         {
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
