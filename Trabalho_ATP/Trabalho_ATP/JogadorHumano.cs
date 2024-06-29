@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trabalho_ATP
+namespace TrabalhoATP
 {
     internal class JogadorHumano
     {
@@ -19,7 +19,7 @@ namespace Trabalho_ATP
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
             numTirosDados = 0;
-            posTirosDados = new Posicao[linha * coluna];
+            posTirosDados = new Posicao[linha * coluna]; // limite de posições
             this.nickname = nickname;
         }
         public char[,] GerarTabuleiro(int linha, int coluna)
@@ -53,15 +53,12 @@ namespace Trabalho_ATP
             bool posicaoValida = false;
             int linha, coluna;
             Posicao posicaoTiro = new Posicao();
-            string letra;
-            string[] posLinCol;
             while (!posicaoValida)
             {
-                Console.WriteLine("Escolha a posição do tiro(insira nesse modelo: numero da linha,numero da coluna): ");
-                letra = Console.ReadLine();
-                posLinCol = letra.Split(',');
-                linha = int.Parse(posLinCol[0]);
-                coluna = int.Parse(posLinCol[1]);
+                Console.WriteLine("Escolha a LINHA da posição do tiro: "); //arrumar para esse modelo
+                linha = int.Parse(Console.ReadLine());
+                Console.WriteLine("Escolha a COLUNA da posição do tiro: ");
+                coluna = int.Parse(Console.ReadLine());
                 if (linha >= 0 && linha < tabuleiro.GetLength(0) && coluna >= 0 && coluna < tabuleiro.GetLength(1)) //olha se está no lim do tab
                 {
                     posicaoTiro.Linha = linha;
@@ -69,7 +66,7 @@ namespace Trabalho_ATP
                     posicaoValida = true;
                     for (int i = 0; i < numTirosDados; i++)
                     {
-                        if (posTirosDados[i] == posicaoTiro) //para comparar
+                        if (posTirosDados[i].Linha==posicaoTiro.Linha && posTirosDados[i].Coluna == posicaoTiro.Coluna) //para comparar
                         {
                             Console.WriteLine("Posição já utilizada, tente novamente!!");
                             posicaoValida = false;
@@ -127,9 +124,13 @@ namespace Trabalho_ATP
                         Console.Write('T' + "\t");
                     }
                     else if (tabuleiro[l, c] == 'X')
+                    {
                         Console.Write('X' + "\t");
+                    }
                     else
+                    {
                         Console.Write('A' + "\t");
+                    }
                 }
                 Console.WriteLine();
             }
@@ -205,5 +206,4 @@ namespace Trabalho_ATP
 
 
     }
-
 }
