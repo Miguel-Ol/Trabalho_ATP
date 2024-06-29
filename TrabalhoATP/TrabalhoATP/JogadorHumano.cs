@@ -70,7 +70,7 @@ namespace TrabalhoATP
                     posicaoValida = true;
                     for (int i = 0; i < numTirosDados; i++)
                     {
-                        if (posTirosDados[i].Equals(posicaoTiro)) //para comparar
+                        if (posTirosDados[i]==posicaoTiro) //para comparar
                         {
                             Console.WriteLine("Posição já utilizada, tente novamente!!");
                             posicaoValida = false;
