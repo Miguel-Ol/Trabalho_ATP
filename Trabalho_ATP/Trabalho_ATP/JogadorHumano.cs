@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrabalhoATP
+namespace Trabalho_ATP
 {
     internal class JogadorHumano
     {
