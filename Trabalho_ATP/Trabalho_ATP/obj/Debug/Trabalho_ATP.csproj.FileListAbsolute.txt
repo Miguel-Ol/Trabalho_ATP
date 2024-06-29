@@ -1,0 +1,7 @@
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\bin\Debug\Trabalho_ATP.exe.config
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\bin\Debug\Trabalho_ATP.exe
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\bin\Debug\Trabalho_ATP.pdb
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\obj\Debug\Trabalho_ATP.csproj.AssemblyReference.cache
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\obj\Debug\Trabalho_ATP.csproj.CoreCompileInputs.cache
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\obj\Debug\Trabalho_ATP.exe
+C:\Users\migol\OneDrive\Área de Trabalho\prog\Trabalho_ATP\Trabalho_ATP\obj\Debug\Trabalho_ATP.pdb
