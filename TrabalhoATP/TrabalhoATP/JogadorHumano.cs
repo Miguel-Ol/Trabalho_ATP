@@ -83,7 +83,7 @@ namespace TrabalhoATP
                     Console.WriteLine("Posição INVÁLIDA! Informe novamenete.");
                 }
             }
-            posTirosDados[numTirosDados] = posicaoTiro; //se valida, bota no vet PRECISO COLOCAR POSICAOTIRO PARA RECEBER LINHA COLUNA
+            posTirosDados[numTirosDados] = posicaoTiro; //se valida, bota no vet 
             numTirosDados++;
             return posicaoTiro;
         }
