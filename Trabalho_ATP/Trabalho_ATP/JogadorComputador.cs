@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trabalho_ATP;
 
-namespace Trabalho_ATP
+namespace TrabalhoATP
 {
     internal class JogadorComputador
     {
@@ -143,10 +144,14 @@ namespace Trabalho_ATP
                     {
                         Console.Write('T' + "\t");
                     }
-                    else if(tabuleiro[l, c] == 'X')
+                    else if (tabuleiro[l, c] == 'X')
+                    {
                         Console.Write('X' + "\t");
+                    }
                     else
+                    {
                         Console.Write('A' + "\t");
+                    }
                 }
                 Console.WriteLine();
             }
@@ -154,13 +159,12 @@ namespace Trabalho_ATP
 
         public bool AdicionarEmbarcacao(Embarcacao embarcacao, Posicao pos)
         {
-            if (tabuleiro[pos.Linha, pos.Coluna] == 'A') // se n tiver outra embarc
+            if (tabuleiro[pos.Linha, pos.Coluna] == 'A')
             {
-                if (tabuleiro.GetLength(1) - pos.Coluna >= embarcacao.Tamanho) // se couber
+                if (tabuleiro.GetLength(1) - pos.Coluna >= embarcacao.Tamanho)
                 {
-                    // se as proximas pos tbm n tiverem embarc
                     int cont = 1; bool vazio = true;
-                    for (int i = pos.Coluna + 1; cont < embarcacao.Tamanho && vazio; i++) // se n puder embarcacao do lado da outra, mudar pra cont <= embarcacao.Tamanho
+                    for (int i = pos.Coluna + 1; cont < embarcacao.Tamanho && vazio; i++)
                     {
                         if (tabuleiro[pos.Linha, i] != 'A')
                         {
@@ -179,18 +183,18 @@ namespace Trabalho_ATP
                         }
                         return true;
                     }
-                    else // se outra posiçao necessaria ja tiver embarcacao
+                    else
                     {
                         return false;
                     }
 
                 }
-                else // se n couber
+                else
                 {
                     return false;
                 }
             }
-            else // se ja estiver ocupado
+            else
             {
                 return false;
             }

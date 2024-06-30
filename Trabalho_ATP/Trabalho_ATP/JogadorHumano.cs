@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trabalho_ATP;
 
-namespace Trabalho_ATP
+namespace TrabalhoATP
 {
     internal class JogadorHumano
     {
@@ -19,7 +20,7 @@ namespace Trabalho_ATP
             tabuleiro = GerarTabuleiro(linha, coluna);
             pontuacao = 0;
             numTirosDados = 0;
-            posTirosDados = new Posicao[linha * coluna]; // limite de posições
+            posTirosDados = new Posicao[linha * coluna];
             this.nickname = nickname;
         }
         public char[,] GerarTabuleiro(int linha, int coluna)
@@ -34,12 +35,12 @@ namespace Trabalho_ATP
             }
             return tab;
         }
-        public string GerarNickname(string nomeCompleto) //nome fornecido no main
+        public string GerarNickname(string nomeCompleto)
         {
-            string[] nome = nomeCompleto.Split(' '); //tranformo em um vetor, fazendo o split dos espaços
-            if (nome.Length == 0) //como, sempre o primeiro nome é SEMPRE a primeira posição
+            string[] nome = nomeCompleto.Split(' ');
+            if (nome.Length == 0)
             {
-                return string.Empty; //devolvo um vazio, para armazenar no proximo for
+                return string.Empty;
             }
             string nickname = nome[0];
             for (int i = 1; i < nome.Length; i++)
@@ -55,18 +56,18 @@ namespace Trabalho_ATP
             Posicao posicaoTiro = new Posicao();
             while (!posicaoValida)
             {
-                Console.WriteLine("Escolha a LINHA da posição do tiro: "); //arrumar para esse modelo
+                Console.WriteLine("Escolha a LINHA da posição do tiro: ");
                 linha = int.Parse(Console.ReadLine());
                 Console.WriteLine("Escolha a COLUNA da posição do tiro: ");
                 coluna = int.Parse(Console.ReadLine());
-                if (linha >= 0 && linha < tabuleiro.GetLength(0) && coluna >= 0 && coluna < tabuleiro.GetLength(1)) //olha se está no lim do tab
+                if (linha >= 0 && linha < tabuleiro.GetLength(0) && coluna >= 0 && coluna < tabuleiro.GetLength(1))
                 {
                     posicaoTiro.Linha = linha;
                     posicaoTiro.Coluna = coluna;
                     posicaoValida = true;
                     for (int i = 0; i < numTirosDados; i++)
                     {
-                        if (posTirosDados[i].Linha==posicaoTiro.Linha && posTirosDados[i].Coluna == posicaoTiro.Coluna) //para comparar
+                        if (posTirosDados[i].Linha == posicaoTiro.Linha && posTirosDados[i].Coluna == posicaoTiro.Coluna)
                         {
                             Console.WriteLine("Posição já utilizada, tente novamente!!");
                             posicaoValida = false;
@@ -76,10 +77,10 @@ namespace Trabalho_ATP
                 }
                 else
                 {
-                    Console.WriteLine("Posição INVÁLIDA! Informe novamenete.");
+                    Console.WriteLine("Posição INVÁLIDA! Informe novamente.");
                 }
             }
-            posTirosDados[numTirosDados] = posicaoTiro; //se valida, bota no vet 
+            posTirosDados[numTirosDados] = posicaoTiro;
             numTirosDados++;
             return posicaoTiro;
         }

@@ -1,31 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trabalho_ATP;
+using TrabalhoATP;
 
-namespace Trabalho_ATP
+namespace TrabalhoATP
 {
     internal class BatalhaNaval
     {
         static void Main(string[] args)
         {
-            Embarcacao embarcaçãoVez = new Embarcacao("Submarino",1);
+            Embarcacao embarcaçãoVez = new Embarcacao("Submarino", 1);
             Posicao posiçãoVez = new Posicao();
             bool segue;
-            int linhaPosição,colunaPosição, cont = 0,contEmbarcações=0, quantEmbarcaçãoVez=3, pontuaçãoTotal=0;
+            int linhaPosição, colunaPosição, cont = 0, contEmbarcações = 0, quantEmbarcaçãoVez = 3, pontuaçãoTotal = 22;
             Random posiçãoAleatoria = new Random();
 
-            StreamWriter jogadasJogador = new StreamWriter("jogadasJogador.txt", false, Encoding.UTF8);
-            StreamWriter jogadasComputador = new StreamWriter("jogadasComputador.txt", false, Encoding.UTF8);
+            string[] jogadasJogador = new string[100];
+            string[] jogadasComputador = new string[100];
 
-            Console.WriteLine("informe seu nome completo");
+            Console.WriteLine("Informe seu nome completo: ");
             string nomeCompleto = Console.ReadLine();
-            
-            JogadorHumano jogadorMain = new JogadorHumano(10,10,nomeCompleto);
-            jogadorMain.Nickname = jogadorMain.GerarNickname(jogadorMain.Nickname); 
-            JogadorComputador computadorMain = new JogadorComputador(10,10);
+
+            JogadorHumano jogadorMain = new JogadorHumano(10, 10, nomeCompleto);
+            jogadorMain.Nickname = jogadorMain.GerarNickname(jogadorMain.Nickname);
+            JogadorComputador computadorMain = new JogadorComputador(10, 10);
 
 
             while (contEmbarcações < 5)
@@ -33,14 +36,14 @@ namespace Trabalho_ATP
                 switch (contEmbarcações)
                 {
                     case 0:
-                        embarcaçãoVez = new Embarcacao("Submarino",1);
+                        embarcaçãoVez = new Embarcacao("Submarino", 1);
                         quantEmbarcaçãoVez = 3;
                         break;
-                        case 1:
+                    case 1:
                         embarcaçãoVez = new Embarcacao("Hidroavião", 2);
                         quantEmbarcaçãoVez = 2;
                         break;
-                        case 2:
+                    case 2:
                         embarcaçãoVez = new Embarcacao("Cruzador", 3);
                         quantEmbarcaçãoVez = 2;
                         break;
@@ -53,11 +56,12 @@ namespace Trabalho_ATP
                         quantEmbarcaçãoVez = 1;
                         break;
                 }
+
                 while (cont < quantEmbarcaçãoVez)
                 {
-                    Console.WriteLine($"{jogadorMain.Nickname}, informe a linha do {cont + 1}º {embarcaçãoVez.Nome}");
+                    Console.WriteLine($"{jogadorMain.Nickname}, Informe a linha do {cont + 1}º {embarcaçãoVez.Nome}");
                     linhaPosição = int.Parse(Console.ReadLine());
-                    Console.WriteLine($"{jogadorMain.Nickname}, informe a coluna do {cont + 1}º {embarcaçãoVez.Nome}");
+                    Console.WriteLine($"{jogadorMain.Nickname}, Informe a coluna do {cont + 1}º {embarcaçãoVez.Nome}");
                     colunaPosição = int.Parse(Console.ReadLine());
                     if (linhaPosição < 10 && colunaPosição < 10)
                     {
@@ -72,109 +76,155 @@ namespace Trabalho_ATP
                         }
 
                         else
-                            Console.WriteLine("posição inválida");
+                        {
+                            Console.WriteLine("Posição já utilizada, tente novamente!!");
+                        }
+
                     }
                     else
-                        Console.WriteLine("posição inválida");
-                }
-                /*while (cont < quantEmbarcaçãoVez)
-                {
-                    posiçãoVez.Linha = posiçãoAleatoria.Next(0, 10);
-                    posiçãoVez.Coluna = posiçãoAleatoria.Next(0, 10);
-                    segue = jogadorMain.AdicionarEmbarcacao(embarcaçãoVez, posiçãoVez);
-                    if (segue)
                     {
-                        cont++;
-                    }
-                }*/
-                cont = 0;
-
-                while (cont < quantEmbarcaçãoVez)
-                {
-                    posiçãoVez.Linha = posiçãoAleatoria.Next(0,10);
-                    posiçãoVez.Coluna = posiçãoAleatoria.Next(0, 10);
-                    segue = computadorMain.AdicionarEmbarcacao(embarcaçãoVez,posiçãoVez);
-                    if (segue)
-                    {
-                        cont++;
+                        Console.WriteLine("Posição INVÁLIDA! Informe novamente.");
                     }
                 }
-                pontuaçãoTotal += embarcaçãoVez.Tamanho * quantEmbarcaçãoVez;
                 contEmbarcações++;
                 cont = 0;
+                
             }
 
-            int contTirosJogador=1;
-            int contTirosComputador=1;
-            Console.WriteLine("pontuação total para vencer: " + pontuaçãoTotal);
+
+            StreamReader frotaComputador = new StreamReader("frotaComputador.txt", Encoding.UTF8);
+            string linhaFrota = frotaComputador.ReadLine();
+            string EmbarcaçãoVez;
+            string[] posiçãoEmbarcaçãoComputador;
+            while (linhaFrota != null)
+            {
+                EmbarcaçãoVez = linhaFrota.Remove(1);
+                switch (EmbarcaçãoVez) 
+                {
+                    case "S":
+                        embarcaçãoVez = new Embarcacao("Submarino", 1);
+                        break;
+                    case "H":
+                        embarcaçãoVez = new Embarcacao("Hidroavião", 2);
+                        break;
+                    case "C":
+                        embarcaçãoVez = new Embarcacao("Cruzador", 3);
+                        break;
+                    case "E":
+                        embarcaçãoVez = new Embarcacao("Encouraçado", 4);
+                        break;
+                    case "P":
+                        embarcaçãoVez = new Embarcacao("Porta-aviões", 5);
+                        break;
+                }
+                posiçãoEmbarcaçãoComputador = linhaFrota.Split(';');
+                posiçãoVez.Linha = int.Parse(posiçãoEmbarcaçãoComputador[1]);
+                posiçãoVez.Coluna = int.Parse(posiçãoEmbarcaçãoComputador[2]);
+                segue = computadorMain.AdicionarEmbarcacao(embarcaçãoVez, posiçãoVez);
+                if (segue)
+                {
+                    linhaFrota = frotaComputador.ReadLine();
+                }
+                else
+                    Console.WriteLine("posição para embarcação do computador inválida");
+            }
 
 
+
+            int contTirosJogador = 1;
+            int contTirosComputador = 1;
+            Console.WriteLine("Pontuação total para vencer: " + pontuaçãoTotal);
+
+            segue = true;
             while (jogadorMain.Pontuacao != pontuaçãoTotal && computadorMain.Pontuacao != pontuaçãoTotal)
             {
-                /*Console.WriteLine("teste");
-                computadorMain.ImprimirTabuleiroJogador();*/
-                segue = true;
+
+                if (jogadorMain.Pontuacao == pontuaçãoTotal || jogadorMain.Pontuacao == pontuaçãoTotal)
+                    segue = false;
+                else
+                {
+                    segue = true;
+                    Console.WriteLine();
+                }
 
 
                 while (segue && jogadorMain.Pontuacao != pontuaçãoTotal)
                 {
-                    Console.WriteLine("forma atual do tabuleiro computador:");
+                    Console.WriteLine("Forma atual do tabuleiro computador:");
                     computadorMain.ImprimirTabuleiroAdversario();
                     Console.Write($"{jogadorMain.Nickname}, ");
                     posiçãoVez = jogadorMain.EscolherAtaque();
                     segue = computadorMain.ReceberAtaque(posiçãoVez);
                     if (segue)
                     {
-                        Console.WriteLine("embarcação acertada!");
+                        Console.WriteLine("Embarcação acertada!");
                         jogadorMain.Pontuacao++;
-                        Console.WriteLine($"pontuação {jogadorMain.Nickname}: "+ jogadorMain.Pontuacao);
+                        Console.WriteLine($"Pontuação {jogadorMain.Nickname}: " + jogadorMain.Pontuacao);
                     }
                     else
                     {
-                        Console.WriteLine("nenhuma embarcação acertada.");
+                        Console.WriteLine("Nenhuma embarcação acertada.");
                     }
-                    jogadasJogador.WriteLine($"tiro {contTirosJogador}: ({posiçãoVez.Linha},{posiçãoVez.Coluna})");
+                    jogadasJogador[contTirosJogador]=$"Tiro {contTirosJogador}: ({posiçãoVez.Linha},{posiçãoVez.Coluna})";
                     contTirosJogador++;
-                } 
+                }
 
-                Console.WriteLine();
-                segue = true;
-
+                if (jogadorMain.Pontuacao == pontuaçãoTotal || jogadorMain.Pontuacao == pontuaçãoTotal)
+                    segue = false;
+                else
+                {
+                    segue = true;
+                    Console.WriteLine();
+                }
 
                 while (segue && computadorMain.Pontuacao != pontuaçãoTotal)
                 {
                     posiçãoVez = computadorMain.EscolherAtaque();
-                    Console.WriteLine($"ataque do computador em {posiçãoVez.Linha},{posiçãoVez.Coluna}");
+                    Console.WriteLine($"Ataque do computador em {posiçãoVez.Linha},{posiçãoVez.Coluna}");
                     segue = jogadorMain.ReceberAtaque(posiçãoVez);
                     if (segue)
                     {
-                        Console.WriteLine($"embarcação de {jogadorMain.Nickname} acertada!");
+                        Console.WriteLine($"Embarcação de {jogadorMain.Nickname} acertada!");
                         computadorMain.Pontuacao++;
-                        Console.WriteLine($"pontuação computador: " + computadorMain.Pontuacao);
+                        Console.WriteLine($"Pontuação computador: " + computadorMain.Pontuacao);
                     }
                     else
                     {
-                        Console.WriteLine($"nenhuma embarcação de {jogadorMain.Nickname} acertada.");
+                        Console.WriteLine($"Nenhuma embarcação de {jogadorMain.Nickname} acertada.");
                     }
-                    Console.WriteLine("forma atual tabuleiro jogador:");
+                    Console.WriteLine("Forma atual tabuleiro jogador:");
                     jogadorMain.ImprimirTabuleiroAdversario();
-                    jogadasComputador.WriteLine($"tiro {contTirosComputador}: ({posiçãoVez.Linha},{posiçãoVez.Coluna})");
+                    jogadasComputador[contTirosComputador]=$"Tiro {contTirosComputador}: ({posiçãoVez.Linha},{posiçãoVez.Coluna})";
                     contTirosComputador++;
-                } 
-                Console.WriteLine();
+                }
             }
-            jogadasJogador.Close();
-            jogadasComputador.Close();
+
+            Console.WriteLine();
+
+            StreamWriter jogadas = new StreamWriter("jogadas.txt", false, Encoding.UTF8);
+            int contLinhasArquivo = 1;
 
             if (jogadorMain.Pontuacao == pontuaçãoTotal)
             {
                 Console.WriteLine($"{jogadorMain.Nickname} venceu!");
+                while(jogadasJogador[contLinhasArquivo] != null)
+                {
+                    jogadas.WriteLine(jogadasJogador[contLinhasArquivo]);
+                    contLinhasArquivo++;
+                }
+
             }
             else
-                Console.WriteLine("computador venceu!");
-
-  
-
+            {
+                Console.WriteLine("Computador venceu!");
+                while (jogadasComputador[contLinhasArquivo] != null)
+                {
+                    jogadas.WriteLine(jogadasComputador[contLinhasArquivo]);
+                    contLinhasArquivo++;
+                }
+                
+            }
+            jogadas.Close();
         }
     }
 }
